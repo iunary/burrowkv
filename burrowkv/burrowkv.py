@@ -1,9 +1,10 @@
 """Burrowkv key value store implementation in python
 """
-from typing import Optional, List, Tuple
-from collections import defaultdict
+import threading
 import json
+from collections import defaultdict
 from contextlib import contextmanager
+from typing import Optional, List, Tuple
 
 
 class Burrowkv:
@@ -16,6 +17,7 @@ class Burrowkv:
         Initialize an empty key-value store.
         """
         self.__store = defaultdict(lambda: None)
+        self.__lock = threading.Lock()
 
     def set(self, key: str, value: str) -> None:
         """
@@ -29,7 +31,8 @@ class Burrowkv:
             >>> store = KeyValueStore()
             >>> store.set('name', 'John')
         """
-        self.__store[key] = value
+        with self.__lock:
+            self.__store[key] = value
 
     def get(self, key: str) -> Optional[str]:
         """
@@ -49,7 +52,8 @@ class Burrowkv:
             'John'
             >>> store.get('age')
         """
-        return self.__store[key]
+        with self.__lock:
+            return self.__store[key]
 
     def delete(self, key: str) -> None:
         """
@@ -58,7 +62,8 @@ class Burrowkv:
         Args:
             key (str): The key to delete.
         """
-        del self.__store[key]
+        with self.__lock:
+            del self.__store[key]
 
     def contains(self, key: str) -> bool:
         """
@@ -145,7 +150,8 @@ class Burrowkv:
         Returns:
             None
         """
-        self.__store = defaultdict(lambda: None, json.loads(json_data))
+        with self.__lock:
+            self.__store = defaultdict(lambda: None, json.loads(json_data))
 
     @contextmanager
     def transaction(self):
@@ -173,8 +179,8 @@ class Burrowkv:
         Returns:
             None
         """
-
-        self.__store.clear()
+        with self.__lock:
+            self.__store.clear()
 
     def __len__(self) -> int:
         """
