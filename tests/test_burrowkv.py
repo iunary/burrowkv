@@ -49,11 +49,11 @@ class TestBurrow(unittest.TestCase):
 
         self.assertEqual(new_store.get("name"), "John")
         self.assertEqual(new_store.get("age"), "30")
-        
+
     def test_clear(self):
         self.store.set("name", "John")
         self.store.clear()
-        
+
         self.assertEqual(len(self.store), 0)
 
 

@@ -1,3 +1,5 @@
+"""Burrowkv key value store implementation in python
+"""
 from typing import Optional, List, Tuple
 from collections import defaultdict
 import json
@@ -37,7 +39,8 @@ class Burrowkv:
             key (str): The key to retrieve.
 
         Returns:
-            The value associated with the key, or None if the key does not exist.
+            The value associated with the key, or None
+            if the key does not exist.
 
         Example:
             >>> store = KeyValueStore()
@@ -147,7 +150,8 @@ class Burrowkv:
     @contextmanager
     def transaction(self):
         """
-        Create a transaction context for performing multiple operations on the store.
+        Create a transaction context for
+        performing multiple operations on the store.
 
         Example:
         >>> store = KeyValueStore()
@@ -171,7 +175,7 @@ class Burrowkv:
         """
 
         self.__store.clear()
-        
+
     def __len__(self) -> int:
         """
         Return the number of key-value pairs in the store.
