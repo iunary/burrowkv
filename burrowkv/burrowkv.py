@@ -28,7 +28,7 @@ class Burrowkv:
             value (str): The value to associate with the key.
 
         Example:
-            >>> store = KeyValueStore()
+            >>> store = Burrowkv()
             >>> store.set('name', 'John')
         """
         with self.__lock:
@@ -46,7 +46,7 @@ class Burrowkv:
             if the key does not exist.
 
         Example:
-            >>> store = KeyValueStore()
+            >>> store = Burrowkv()
             >>> store.set('name', 'John')
             >>> store.get('name')
             'John'
@@ -76,7 +76,7 @@ class Burrowkv:
             bool: True if the key exists, False otherwise.
 
         Example:
-            >>> store = KeyValueStore()
+            >>> store = Burrowkv()
             >>> store.set('name', 'John')
             >>> store.contains('name')
             True
@@ -93,7 +93,7 @@ class Burrowkv:
             list: A list of keys.
 
         Example:
-            >>> store = KeyValueStore()
+            >>> store = Burrowkv()
             >>> store.set('name', 'John')
             >>> store.keys()
             ['name']
@@ -108,7 +108,7 @@ class Burrowkv:
             list: A list of values.
 
         Example:
-            >>> store = KeyValueStore()
+            >>> store = Burrowkv()
             >>> store.set('name', 'John')
             >>> store.values()
             ['John']
@@ -123,7 +123,7 @@ class Burrowkv:
             list: A list of (key, value) tuples.
 
         Example:
-            >>> store = KeyValueStore()
+            >>> store = Burrowkv()
             >>> store.set('name', 'John')
             >>> store.items()
             [('name', 'John')]
@@ -160,17 +160,14 @@ class Burrowkv:
         performing multiple operations on the store.
 
         Example:
-        >>> store = KeyValueStore()
+        >>> store = Burrowkv()
         >>> with store.transaction():
         ...     store.set('name', 'John')
         ...     store.set('age', 30)
         >>> store.get('name')
         >>> store.get('age')
         """
-        try:
-            yield
-        finally:
-            self.__store.clear()
+        yield
 
     def clear(self):
         """
@@ -190,3 +187,11 @@ class Burrowkv:
             int: The number of key-value pairs.
         """
         return len(self.__store)
+    
+    def __repr__(self) -> str:
+        """Return the store representation
+
+        Returns:
+            str: JSON respresentation of key-value store
+        """
+        return self.to_json()
