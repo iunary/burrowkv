@@ -1,10 +1,10 @@
 """Burrowkv key value store implementation in python
 """
-import threading
 import json
+import threading
 from collections import defaultdict
 from contextlib import contextmanager
-from typing import Optional, List, Tuple
+from typing import List, Optional, Tuple
 
 
 class Burrowkv:
@@ -187,7 +187,7 @@ class Burrowkv:
             int: The number of key-value pairs.
         """
         return len(self.__store)
-    
+
     def __repr__(self) -> str:
         """Return the store representation
 

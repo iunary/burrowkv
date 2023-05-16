@@ -1,3 +1,5 @@
+[![Burrowkv](https://github.com/iunary/burrowkv/actions/workflows/app.yml/badge.svg)](https://github.com/iunary/burrowkv/actions/workflows/app.yml)
+
 # Burrowkv
 
 Burrowkv is a simple key-value store implementation in Python. It provides basic functionality to store and retrieve key-value pairs, as well as additional features such as JSON serialization and deserialization.
