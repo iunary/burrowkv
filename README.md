@@ -23,7 +23,7 @@ pip install burrowkv
 ```
 
 ## Usage
-```
+```python
 from burrowkv import burrowkv
 
 # Create a new instance of burrowkv
